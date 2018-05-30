@@ -12,17 +12,17 @@
         private static string FilmTitle { get; set; }
         private static string CharacterName { get; set; }
 
-        private static async Task RunAsync(string filmTitle, string characterName) {
+        public static async Task<string> RunAsync(string filmTitle, string characterName) {
             var characters = await CharactersUtility.GetCharacters(filmTitle).ConfigureAwait(false);
             var films = await FilmsUtility.GetFilms(characterName).ConfigureAwait(false);
-            var message = $"{FilmTitle}: {characters}; {CharacterName}: {films}";
-            Console.WriteLine(message);
+            return $"{FilmTitle}: {characters}; {CharacterName}: {films}";
         }
 
         private static async Task Main() {
-            FilmTitle = "A New e";
-            CharacterName = "Luke Skyw";
-            await RunAsync(FilmTitle, CharacterName).ConfigureAwait(false);
+            FilmTitle = "A New Hope";
+            CharacterName = "Luke Skywalker";
+            var message = await RunAsync(FilmTitle, CharacterName).ConfigureAwait(false);
+            Console.WriteLine(message);
             Console.ReadKey();
         }
     }
